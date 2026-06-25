@@ -1,0 +1,87 @@
+<app-navbar role="driver"></app-navbar>
+<div class="page-bg">
+  <div class="sd-topbar">
+    <a routerLink="/dashboard" class="back-btn"><i class="bi bi-arrow-left"></i> Back to map</a>
+    <button class="heart-btn" [class.saved]="isFavorite" (click)="toggleFavorite()" title="Save to favorites">
+      <i class="bi" [ngClass]="isFavorite ? 'bi-heart-fill' : 'bi-heart'"></i>
+      <span>{{isFavorite ? 'Saved' : 'Save'}}</span>
+    </button>
+  </div>
+
+  <div class="sd-layout page-container">
+    <!-- Gallery -->
+    <div class="sd-left">
+      <div class="gallery-main">
+        <div class="gallery-placeholder"><i class="bi bi-lightning-charge-fill"></i></div>
+        <span class="badge-available gallery-badge">Available</span>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-thumb" *ngFor="let b of [1,2,3,4]">Bay {{b}}</div>
+      </div>
+
+      <!-- Specs — fixed layout -->
+      <div class="specs-section">
+        <div class="spec-card">
+          <div class="spec-icon"><i class="bi bi-lightning-charge-fill"></i></div>
+          <div class="spec-val">250 kW</div>
+          <div class="spec-lbl">Ultra Fast</div>
+        </div>
+        <div class="spec-card">
+          <div class="spec-icon price-icon"><i class="bi bi-tag-fill"></i></div>
+          <div class="spec-val">$0.34</div>
+          <div class="spec-lbl">per kWh</div>
+        </div>
+        <div class="spec-card">
+          <div class="spec-icon loc-icon"><i class="bi bi-geo-alt-fill"></i></div>
+          <div class="spec-val">0.4 mi</div>
+          <div class="spec-lbl">Available now</div>
+        </div>
+      </div>
+
+      <div class="sd-notes">
+        <div class="notes-label">NOTES</div>
+        <p>Covered parking, café next door, 24/7 access.</p>
+      </div>
+    </div>
+
+    <!-- Info + booking -->
+    <div class="sd-right">
+      <h1 class="sd-title">Mission Bay Supercharger</h1>
+      <div class="sd-meta">
+        <span class="sd-rating"><i class="bi bi-star-fill"></i> 4.8 <span class="text-muted">(412 reviews)</span></span>
+        <span class="sd-dot">·</span>
+        <span class="text-muted"><i class="bi bi-geo-alt"></i> 275 Berry St, San Francisco</span>
+      </div>
+
+      <!-- Booking widget -->
+      <div class="booking-widget">
+        <div class="bw-row"><div class="bw-label">Estimated session</div></div>
+        <div class="bw-time">~25 min</div>
+        <div class="bw-sub">to 80% · ≈ $11.20</div>
+        <div class="bw-divider"></div>
+        <div class="bw-detail-row"><span>Charging speed</span><strong>250 kW · Ultra Fast</strong></div>
+        <div class="bw-detail-row"><span>Price</span><strong>$0.34 / kWh</strong></div>
+        <div class="bw-detail-row"><span>Est. energy</span><strong>35 kWh</strong></div>
+        <div class="bw-detail-row highlight"><span>Est. total</span><strong class="text-green">$11.90</strong></div>
+        <a routerLink="/booking" class="btn-ew-primary btn-full bw-book-btn">
+          <i class="bi bi-calendar-check-fill"></i> Book Now
+        </a>
+        <a routerLink="/navigate" class="btn-ew-outline btn-full bw-nav-btn">
+          <i class="bi bi-navigation-fill"></i> Navigate
+        </a>
+      </div>
+
+      <!-- Reviews preview -->
+      <div class="reviews-preview">
+        <div class="rp-header"><span class="rp-title">Recent reviews</span><span class="rp-rating"><i class="bi bi-star-fill"></i> 4.8</span></div>
+        <div class="rp-item" *ngFor="let r of reviews">
+          <div class="rp-av">{{r.initials}}</div>
+          <div class="rp-content">
+            <div class="rp-name">{{r.name}} <span class="rp-stars">{{r.stars}}</span></div>
+            <div class="rp-text">{{r.text}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

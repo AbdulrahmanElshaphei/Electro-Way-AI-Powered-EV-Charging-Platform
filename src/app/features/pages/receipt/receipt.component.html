@@ -1,0 +1,29 @@
+<div class="receipt-page">
+  <div class="rp-header">
+    <a routerLink="/dashboard" class="back-btn"><i class="bi bi-arrow-left"></i> Home</a>
+    <a class="ew-logo" routerLink="/"><div class="ew-logo-icon"><svg viewBox="0 0 24 24"><path d="M13 2L4.09 12.26a1 1 0 0 0 .91 1.74H11v8l8.91-10.26a1 1 0 0 0-.91-1.74H13V2z"/></svg></div><span class="ew-logo-text">Electro<span>Way</span></span></a>
+  </div>
+  <div class="rp-body">
+    <span class="charge-tag"><i class="bi bi-battery-charging"></i> Charging Complete</span>
+    <h1 class="rp-receipt-title">Your receipt</h1>
+    <div class="receipt-card">
+      <div class="rc-total-block">
+        <div class="rc-total-lbl">TOTAL AMOUNT</div>
+        <div class="rc-total-val">${{session.total.toFixed(2)}}</div>
+        <div class="rc-station">{{session.stationName}}</div>
+      </div>
+      <div class="rc-rows">
+        <div class="rc-row"><span>Station name</span><strong>{{session.stationName}}</strong></div>
+        <div class="rc-row"><span>Port ID</span><strong>{{session.portId}}</strong></div>
+        <div class="rc-row"><span>Energy used</span><strong>{{session.energyKwh}} kWh</strong></div>
+        <div class="rc-row"><span>Price per kWh</span><strong>${{session.pricePerKwh}}</strong></div>
+        <div class="rc-row"><span>Date &amp; time</span><strong>{{session.dateTime}}</strong></div>
+        <div class="rc-row"><span>Session duration</span><strong>{{session.durationMin}} min</strong></div>
+      </div>
+      <a routerLink="/payment" class="btn-ew-primary btn-full" style="padding:14px;font-size:15px">
+        <i class="bi bi-credit-card"></i> Pay by Card
+      </a>
+      <p class="rc-secure">Secure payment · 256-bit encryption</p>
+    </div>
+  </div>
+</div>

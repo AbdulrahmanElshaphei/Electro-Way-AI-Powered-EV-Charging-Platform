@@ -1,0 +1,27 @@
+<app-navbar role="driver"></app-navbar>
+<div class="page-bg">
+  <div class="page-container py-4">
+    <h1 class="page-heading">Charging history</h1>
+    <p class="page-sub">Your past charging sessions, receipts, and energy used.</p>
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-label">SESSIONS THIS MONTH</div><div class="stat-value">14</div></div>
+      <div class="stat-card"><div class="stat-label">ENERGY DELIVERED</div><div class="stat-value">412 kWh</div></div>
+      <div class="stat-card"><div class="stat-label">TOTAL SPENT</div><div class="stat-value">$132.40</div></div>
+    </div>
+    <div class="ew-card p-0 mt-3">
+      <table class="ew-table">
+        <thead><tr><th>Transaction</th><th>Station</th><th>Date</th><th>Energy</th><th>Total</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr *ngFor="let t of sessions">
+            <td class="fw-600">{{t.id}}</td>
+            <td><span class="station-dot"></span> {{t.station}}</td>
+            <td>{{t.date}}</td>
+            <td>{{t.energy}}</td>
+            <td class="fw-600">{{t.total}}</td>
+            <td><span [ngClass]="t.status==='Paid'?'badge-paid':'badge-refunded'">{{t.status}}</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

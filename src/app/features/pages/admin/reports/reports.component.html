@@ -1,0 +1,63 @@
+<app-navbar role="admin"></app-navbar>
+<div class="page-bg">
+  <div class="page-container py-4">
+    <h1 class="page-heading">Reports & Analytics</h1>
+    <p class="page-sub">Platform performance, revenue trends, and usage insights.</p>
+    <div class="reports-stats mb-4">
+      <div class="stat-card" *ngFor="let s of kpis">
+        <div class="stat-label">{{s.label}}</div>
+        <div class="stat-value">{{s.value}}</div>
+        <div class="stat-badge text-green">{{s.trend}}</div>
+      </div>
+    </div>
+    <div class="charts-grid">
+      <!-- Revenue chart -->
+      <div class="ew-card">
+        <h2 class="card-title mb-3">Monthly Revenue</h2>
+        <div class="bar-chart">
+          <div class="bar-group" *ngFor="let m of revenueData">
+            <div class="bar-fill" [style.height]="m.pct+'%'"></div>
+            <div class="bar-label">{{m.month}}</div>
+            <div class="bar-val">{{m.val}}</div>
+          </div>
+        </div>
+      </div>
+      <!-- New users chart -->
+      <div class="ew-card">
+        <h2 class="card-title mb-3">New Users per Month</h2>
+        <div class="bar-chart">
+          <div class="bar-group" *ngFor="let m of usersData">
+            <div class="bar-fill bar-blue" [style.height]="m.pct+'%'"></div>
+            <div class="bar-label">{{m.month}}</div>
+            <div class="bar-val">{{m.val}}</div>
+          </div>
+        </div>
+      </div>
+      <!-- Top stations -->
+      <div class="ew-card">
+        <h2 class="card-title mb-3">Top Stations by Sessions</h2>
+        <div class="top-station" *ngFor="let s of topStations; let i=index">
+          <div class="ts-rank">#{{i+1}}</div>
+          <div class="ts-info"><div class="ts-name">{{s.name}}</div><div class="ts-city">{{s.city}}</div></div>
+          <div class="ts-bar-wrap"><div class="ts-bar" [style.width]="s.pct+'%'"></div></div>
+          <div class="ts-count">{{s.sessions}}</div>
+        </div>
+      </div>
+      <!-- Session breakdown -->
+      <div class="ew-card">
+        <h2 class="card-title mb-3">Sessions by Charger Speed</h2>
+        <div class="donut-wrap">
+          <svg viewBox="0 0 80 80" class="donut-svg">
+            <circle cx="40" cy="40" r="30" fill="none" stroke="#dcfce7" stroke-width="12"/>
+            <circle cx="40" cy="40" r="30" fill="none" stroke="#22c55e" stroke-width="12" stroke-dasharray="75 25" stroke-dashoffset="25"/>
+            <circle cx="40" cy="40" r="30" fill="none" stroke="#3b82f6" stroke-width="12" stroke-dasharray="15 85" stroke-dashoffset="-50"/>
+          </svg>
+          <div class="donut-center"><div class="dc-val">1,204</div><div class="dc-lbl">Sessions</div></div>
+        </div>
+        <div class="legend">
+          <div class="legend-item" *ngFor="let l of speedLegend"><span class="l-dot" [style.background]="l.color"></span>{{l.label}} — {{l.pct}}%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

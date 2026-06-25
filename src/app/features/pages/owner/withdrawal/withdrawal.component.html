@@ -1,0 +1,98 @@
+<app-navbar role="owner"></app-navbar>
+<div class="page-bg">
+  <div class="wd-container">
+
+    <!-- Step 1: Choose method -->
+    <div *ngIf="step===1">
+      <div class="wd-back"><a routerLink="/owner" class="back-btn"><i class="bi bi-arrow-left"></i> Back to Dashboard</a></div>
+      <div class="wd-header">
+        <p class="step-label">STEP 1 OF 3</p>
+        <h1 class="wd-title">Withdraw your earnings</h1>
+        <p class="wd-sub">Choose how you'd like to receive your money.</p>
+        <div class="balance-chip">Available balance: <strong>$27,350.18</strong></div>
+      </div>
+      <div class="method-grid">
+        <div class="method-card" [class.selected]="method===m.id" (click)="method=m.id" *ngFor="let m of methods">
+          <div class="method-icon" [style.background]="m.bg"><i class="bi" [ngClass]="m.icon" [style.color]="m.color"></i></div>
+          <div class="method-info">
+            <div class="method-name">{{m.name}}</div>
+            <div class="method-desc">{{m.desc}}</div>
+          </div>
+          <i class="bi bi-check-circle-fill method-check" *ngIf="method===m.id"></i>
+        </div>
+      </div>
+      <button class="btn-ew-primary" style="padding:14px 40px;margin-top:24px" (click)="step=2" [disabled]="!method">Continue →</button>
+    </div>
+
+    <!-- Step 2: Enter details -->
+    <div *ngIf="step===2">
+      <div class="wd-back"><button class="back-btn" (click)="step=1"><i class="bi bi-arrow-left"></i> Back</button></div>
+      <div class="wd-header">
+        <p class="step-label">STEP 2 OF 3</p>
+        <h1 class="wd-title">Enter withdrawal details</h1>
+        <p class="wd-sub">Fill in your {{method === 'bank' ? 'bank account' : method === 'wallet' ? 'wallet' : 'card'}} details below.</p>
+      </div>
+      <div class="wd-form-card">
+        <div class="mb-3">
+          <label class="ew-label">Amount to withdraw ($)</label>
+          <input class="ew-input" type="number" placeholder="0.00" [(ngModel)]="amount">
+          <small class="text-muted">Max: $27,350.18</small>
+        </div>
+        <ng-container *ngIf="method==='bank'">
+          <div class="mb-3"><label class="ew-label">Account holder name</label><input class="ew-input" type="text" placeholder="Full legal name" [(ngModel)]="holderName"></div>
+          <div class="mb-3"><label class="ew-label">Bank name</label><input class="ew-input" type="text" placeholder="e.g. Chase Bank" [(ngModel)]="bankName"></div>
+          <div class="mb-3"><label class="ew-label">Account number</label><input class="ew-input" type="text" placeholder="•••• •••• ••••" [(ngModel)]="accountNum"></div>
+          <div class="mb-3"><label class="ew-label">Routing number</label><input class="ew-input" type="text" placeholder="9 digits" [(ngModel)]="routingNum"></div>
+        </ng-container>
+        <ng-container *ngIf="method==='wallet'">
+          <div class="mb-3"><label class="ew-label">Wallet type</label>
+            <select class="ew-input" [(ngModel)]="walletType"><option>PayPal</option><option>Venmo</option><option>Cash App</option></select>
+          </div>
+          <div class="mb-3"><label class="ew-label">Wallet email / phone</label><input class="ew-input" type="text" placeholder="your@email.com" [(ngModel)]="walletId"></div>
+        </ng-container>
+        <ng-container *ngIf="method==='card'">
+          <div class="mb-3"><label class="ew-label">Card number</label><input class="ew-input" type="text" placeholder="•••• •••• •••• ••••" [(ngModel)]="cardNum"></div>
+          <div class="row-2">
+            <div class="mb-3"><label class="ew-label">Expiry</label><input class="ew-input" type="text" placeholder="MM/YY" [(ngModel)]="expiry"></div>
+            <div class="mb-3"><label class="ew-label">CVV</label><input class="ew-input" type="text" placeholder="•••" [(ngModel)]="cvv"></div>
+          </div>
+        </ng-container>
+        <button class="btn-ew-primary btn-full" style="padding:14px" (click)="step=3">Review Withdrawal →</button>
+      </div>
+    </div>
+
+    <!-- Step 3: Confirm -->
+    <div *ngIf="step===3">
+      <div class="wd-back"><button class="back-btn" (click)="step=2"><i class="bi bi-arrow-left"></i> Back</button></div>
+      <div class="wd-header">
+        <p class="step-label">STEP 3 OF 3</p>
+        <h1 class="wd-title">Confirm withdrawal</h1>
+        <p class="wd-sub">Review the details below before confirming.</p>
+      </div>
+      <div class="confirm-card">
+        <div class="cc-row"><span>Amount</span><strong class="text-green">${{amount || '0.00'}}</strong></div>
+        <div class="cc-row"><span>Method</span><strong>{{getMethodName()}}</strong></div>
+        <div class="cc-row"><span>Processing time</span><strong>2–3 business days</strong></div>
+        <div class="cc-row"><span>Platform fee</span><strong>$0.00</strong></div>
+        <div class="cc-row total-row"><span>You receive</span><strong class="text-green">${{amount || '0.00'}}</strong></div>
+        <button class="btn-ew-primary btn-full" style="padding:14px;margin-top:8px" (click)="step=4">✓ Confirm Withdrawal</button>
+        <p style="font-size:12px;color:var(--ew-gray-400);text-align:center;margin-top:10px">Funds will be sent to your registered account.</p>
+      </div>
+    </div>
+
+    <!-- Step 4: Success -->
+    <div *ngIf="step===4" class="success-wrap">
+      <div class="ps-check"><i class="bi bi-check-lg"></i></div>
+      <h1 class="wd-title">Withdrawal Requested!</h1>
+      <p class="wd-sub">Your withdrawal of <strong>${{amount}}</strong> has been submitted successfully.<br>Funds will arrive in 2–3 business days.</p>
+      <div class="confirm-card" style="max-width:400px">
+        <div class="cc-row"><span>Reference ID</span><strong>WD-{{refId}}</strong></div>
+        <div class="cc-row"><span>Amount</span><strong class="text-green">${{amount}}</strong></div>
+        <div class="cc-row"><span>Method</span><strong>{{getMethodName()}}</strong></div>
+        <div class="cc-row"><span>Status</span><span class="badge-pending">Processing</span></div>
+      </div>
+      <a routerLink="/owner" class="btn-ew-primary" style="padding:12px 32px;margin-top:20px">Back to Dashboard</a>
+    </div>
+
+  </div>
+</div>

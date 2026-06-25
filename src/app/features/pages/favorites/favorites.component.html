@@ -1,0 +1,20 @@
+<app-navbar role="driver"></app-navbar>
+<div class="page-bg">
+  <div class="page-container py-4">
+    <h1 class="page-heading">Favorite stations</h1>
+    <p class="page-sub">Your most-used and saved charging stations.</p>
+    <div class="fav-grid">
+      <div class="fav-card" *ngFor="let s of stations" routerLink="/stations/st-001">
+        <div class="fav-img" [style.background]="s.gradient">
+          <span [ngClass]="s.status==='Available'?'badge-available':s.status==='Busy'?'badge-busy':'badge-out'" class="fav-badge-top">{{s.status}}</span>
+          <button class="heart-btn"><i class="bi bi-heart-fill"></i></button>
+        </div>
+        <div class="fav-info">
+          <div class="fav-name">{{s.name}}</div>
+          <div class="fav-addr">📍 {{s.address}}</div>
+          <div class="fav-meta"><span>⭐ {{s.rating}} · {{s.dist}}</span><span class="fav-price">{{s.price}}</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,6 @@
+.page-heading{font-size:26px;font-weight:800;margin-bottom:4px}.page-sub{font-size:14px;color:var(--ew-gray-500)}.py-4{padding-top:32px;padding-bottom:32px}
+
+@media (max-width: 768px) {
+  .page-heading { font-size: 20px; }
+  .ew-card { padding: 0; }
+}

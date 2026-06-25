@@ -1,0 +1,35 @@
+<app-navbar role="admin"></app-navbar>
+<div class="page-bg">
+  <div class="page-container py-4">
+    <div class="d-flex align-items-center justify-content-between mb-4">
+      <div><h1 class="page-heading">Withdrawal Requests</h1><p class="page-sub">Pending and processed payout requests from station owners.</p></div>
+      <div class="tab-switch">
+        <button [class.active]="tab==='pending'"  (click)="tab='pending'">Pending <span class="tab-count">{{getPending().length}}</span></button>
+        <button [class.active]="tab==='approved'" (click)="tab='approved'">Approved</button>
+        <button [class.active]="tab==='rejected'" (click)="tab='rejected'">Rejected</button>
+      </div>
+    </div>
+    <div class="ew-card p-0">
+      <table class="ew-table">
+        <thead><tr><th>Reference</th><th>Owner</th><th>Amount</th><th>Method</th><th>Requested</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody>
+          <tr *ngFor="let w of getFiltered()">
+            <td class="fw-600">{{w.ref}}</td>
+            <td>{{w.owner}}</td>
+            <td class="fw-600 text-green">{{w.amount}}</td>
+            <td><div class="method-pill"><i class="bi" [ngClass]="w.icon"></i> {{w.method}}</div></td>
+            <td class="text-muted">{{w.date}}</td>
+            <td><span [ngClass]="w.status==='Pending'?'badge-pending':w.status==='Approved'?'badge-available':'badge-out'">{{w.status}}</span></td>
+            <td>
+              <div class="action-btns" *ngIf="w.status==='Pending'">
+                <button class="btn-approve" (click)="approve(w)" title="Approve"><i class="bi bi-check-lg"></i></button>
+                <button class="btn-reject"  (click)="reject(w)"  title="Reject"><i class="bi bi-x-lg"></i></button>
+              </div>
+              <span class="text-muted" *ngIf="w.status!=='Pending'">—</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
